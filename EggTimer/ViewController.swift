@@ -22,13 +22,17 @@ class ViewController: UIViewController {
         timer.invalidate()
         let hardness = sender.currentTitle!
         counter = eggTimes[hardness]!
+        progressBar.progress = 0.0
+        secondsPassed = Int(0.0)
+        titleLabel.text = hardness
+        
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
     }
         @objc func updateCounter() {
         if secondsPassed < counter {
-            let percentageProgress = secondsPassed / counter
-            progressBar.progress = Float(percentageProgress)
             secondsPassed += 1
+            progressBar.progress = Float(secondsPassed) / Float(counter)
+            print(Float(secondsPassed) / Float(counter))
 
         }else{
             timer.invalidate()
